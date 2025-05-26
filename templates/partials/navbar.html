@@ -12,10 +12,7 @@
                     <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    {# Keep this disabled link until blog_app is ready and its URL namespace is defined #}
-                    <a class="nav-link disabled" href="#">Blog</a>
-                    {# When blog_app is ready, you'll change this to: #}
-                    {# <a class="nav-link" href="{% url 'blog_app:index' %}">Blog</a> #}
+                    <a class="nav-link" href="{% url 'blog_app:post_list' %}">Blog</a>
                 </li>
             </ul>
         </div>

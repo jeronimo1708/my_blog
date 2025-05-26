@@ -20,6 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('resume_app.urls')), # <--- This makes your resume the homepage
-    # When you create your blog, you'll add something like:
-    # path('blog/', include('blog_app.urls')),
+    path('blog/', include('blog_app.urls', namespace='blog_app')), # <--- This includes the blog app URLs
 ]
