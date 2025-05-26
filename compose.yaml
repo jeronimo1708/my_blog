@@ -30,15 +30,15 @@ services:
       - postgres_data:/var/lib/postgresql/data # Persist database data
     env_file:
       - .env
-    # networks:
-    #   - blog_network # Use a custom network for services
+    networks:
+      - blog_network # Use a custom network for services
 
   web: # Renamed from django-web for brevity, common in compose
     build: . # Build from the Dockerfile in the current directory
     container_name: blog_project-server # Good for easy identification
     # Command to run Django's development server for local development.
     # This overrides the Dockerfile's CMD (gunicorn) for development.
-    command: sh -c "chown -R appuser:appuser /app && python manage.py runserver 0.0.0.0:8000"
+    command: "python manage.py runserver 0.0.0.0:8000"
     # command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app # Mount your local code into the container for live changes

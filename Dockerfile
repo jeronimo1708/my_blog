@@ -17,6 +17,7 @@ FROM python:${PYTHON_VERSION}-slim AS builder
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+RUN mkdir /app
 WORKDIR /app
 
 # Install OS-level dependencies required for building Python packages.

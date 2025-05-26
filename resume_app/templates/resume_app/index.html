@@ -1,0 +1,96 @@
+{% extends 'resume_app/base.html' %}
+
+{% block content %}
+    {# Added main-content-row class to the row #}
+    <div class="row">
+        <!-- Left Sidebar Column -->
+        {# Apply the new fixed-sidebar class. Keep d-flex flex-column for inner content. #}
+        <div class="col-md-3 fixed-sidebar">
+            {# Group top content so mt-auto only affects the social icons section #}
+            <div>
+                <h2 class="mb-0">{{ resume.contact.name }}</h2>
+                <p class="lead">{{ resume.contact.title }}</p> {# Assuming 'title' is Software Engineer in contact or similar #}
+                <p class="text-muted">{{ resume.contact.tagline }}</p>
+
+                <hr class="my-4">
+
+                <ul class="list-unstyled quick-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                </ul>
+            </div>
+
+            {# This section will be pushed to the bottom of the fixed sidebar #}
+            <section id="social-media-icons" class="mt-auto mb-4"> {# mt-auto pushes this div to the bottom #}
+                <hr class="my-4"> {# Add another separator if desired before icons #}
+                {# justify-content-around for equal spacing, gap-3 for consistent gap #}
+                <div class="d-flex social-icons justify-content-around align-items-center gap-3">
+                    <a href="{{ resume.contact.linkedin }}" target="_blank" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="{{ resume.contact.github }}" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:{{ resume.contact.email }}" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="tel:{{ resume.contact.phone }}" title="Phone">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+            </section>
+            <!-- End Social Media Icons Section -->
+        </div> <!-- End Left Sidebar Column -->
+
+        <!-- Right Main Content Column (e.g., 9 out of 12 columns) -->
+        <div class="col-md-9 main-content-offset main-content-area">
+            <!-- About Section -->
+            <section id="about" class="mb-5">
+                <h3 class="section-heading">About</h3>
+                <p>{{ resume.about_text }}</p>
+            </section>
+
+            <!-- Experience Summary Section -->
+            <section id="experience" class="mb-5">
+                <h3 class="section-heading">Experience</h3>
+                <div class="row experience-summary">
+                    <div class="col-md-6">
+                        {% for exp in resume.experience %}
+                            <p class="mb-0">{{ exp.dates }}</p>
+                            <p class="mb-2">{{ exp.company }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6">
+                        {% for exp in resume.experience %}
+                            <p class="mb-0">{{ exp.role }}</p>
+                            <p class="mb-2">{{ exp.role }}</p> {# Role twice as per screenshot #}
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Summary Section -->
+            <section id="projects" class="mb-5">
+                <h3 class="section-heading">Projects</h3>
+                {% for proj in resume.projects %}
+                    <div class="mb-4">
+                        <h4 class="mb-0">{{ proj.name }}</h4>
+                        <p class="text-muted fst-italic">{{ proj.technologies }}</p>
+                        <ul class="list-unstyled">
+                            {% for bullet in proj.bullets %}
+                                <li class="experience-bullet-point">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-dot" viewBox="0 0 16 16">
+                                        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                                    </svg>
+                                    {{ bullet }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </section>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{# blog_project_root/templates/partials/navbar.html #}
+{% load static %} {# Good practice to include if you might use static files in the navbar later #}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">JD</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    {# Keep this disabled link until blog_app is ready and its URL namespace is defined #}
+                    <a class="nav-link disabled" href="#">Blog</a>
+                    {# When blog_app is ready, you'll change this to: #}
+                    {# <a class="nav-link" href="{% url 'blog_app:index' %}">Blog</a> #}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
