@@ -22,25 +22,7 @@
             </div>
 
             {# This section will be pushed to the bottom of the fixed sidebar #}
-            <section id="social-media-icons" class="mt-auto mb-4"> {# mt-auto pushes this div to the bottom #}
-                <hr class="my-4"> {# Add another separator if desired before icons #}
-                {# justify-content-around for equal spacing, gap-3 for consistent gap #}
-                <div class="d-flex social-icons justify-content-around align-items-center gap-3">
-                    <a href="{{ resume.contact.linkedin }}" target="_blank" title="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="{{ resume.contact.github }}" target="_blank" title="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="mailto:{{ resume.contact.email }}" title="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="tel:{{ resume.contact.phone }}" title="Phone">
-                        <i class="fas fa-phone"></i>
-                    </a>
-                </div>
-            </section>
-            <!-- End Social Media Icons Section -->
+            {% include "partials/social_icons.html" %}
         </div> <!-- End Left Sidebar Column -->
 
         <!-- Right Main Content Column (e.g., 9 out of 12 columns) -->

@@ -19,7 +19,7 @@ def post_list(request):
     context = {
         'page': page,
         'posts': posts,
-        'resume': RESUME_DATA # Pass resume data
+        # 'resume': RESUME_DATA # Pass resume data
     }
     return render(request, 'blog_app/post_list.html', context)
 
@@ -34,10 +34,10 @@ def post_detail(request, year, month, day, post):
     comments = post.comments.filter(active=True) # Use the related_name 'comments'
 
     # Pass resume data for the sidebar in post_detail
-    from resume_app.data import RESUME_DATA # Import RESUME_DATA
+    # from resume_app.data import RESUME_DATA # Import RESUME_DATA
     context = {
         'post': post,
         'comments': comments,
-        'resume': RESUME_DATA # Pass resume data
+        # 'resume': RESUME_DATA # Pass resume data
     }
     return render(request, 'blog_app/post_detail.html', context)
