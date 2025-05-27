@@ -4,15 +4,28 @@
 
 {% block content %}
 <div class="row"> {# Simplified row #}
-    {# REMOVED: THE ENTIRE LEFT SIDEBAR COLUMN (col-md-3) IS GONE #}
 
-    {# Right Main Content Column - now spans full width #}
     <div class="col-md-12 main-content-area"> {# Changed to col-md-12, removed main-content-offset and col-fill-height #}
         <h1 class="section-heading">{{ post.title }}</h1>
         <p class="text-muted">
             Published {{ post.publish|date:"F d, Y" }} by {{ post.author }}
             <br>
             Likes: {{ post.likers.count }}
+            {# New: Like/Unlike Button #}
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'blog_app:post_like' post.id %}" method="post" style="display: inline-block; margin-left: 10px;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm {% if request.user in post.likers.all %}btn-danger{% else %}btn-outline-primary{% endif %}">
+                        {% if request.user in post.likers.all %}
+                            Unlike
+                        {% else %}
+                            Like
+                        {% endif %}
+                    </button>
+                </form>
+            {% else %}
+                <small class="ms-2">(<a href="{% url 'admin:login' %}">Log in</a> to like this post)</small>
+            {% endif %}
         </p>
 
         {# Display Tags #}
@@ -48,10 +61,47 @@
             <p>There are no comments yet.</p>
         {% endfor %}
 
-        {# Placeholder for Add Comment Form - will be added later #}
+        {# Add Comment Form #}
         <h3 class="section-heading mt-4">Add a Comment</h3>
-        <p>Comment form will go here.</p>
+        <div class="card mb-4">
+            <div class="card-body">
+                <form action="{{ post.get_absolute_url }}" method="post">
+                    {% csrf_token %} {# CRUCIAL FOR SECURITY #}
+                    
+                    {# Render individual fields with Bootstrap classes #}
+                    <div class="mb-3">
+                        {{ comment_form.name.label_tag }}
+                        {{ comment_form.name }}
+                        {% if comment_form.name.errors %}
+                            <div class="text-danger small">{{ comment_form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ comment_form.email.label_tag }}
+                        {{ comment_form.email }}
+                        {% if comment_form.email.errors %}
+                            <div class="text-danger small">{{ comment_form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ comment_form.body.label_tag }}
+                        {{ comment_form.body }}
+                        {% if comment_form.body.errors %}
+                            <div class="text-danger small">{{ comment_form.body.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    {# Display non-field errors (e.g., if form.is_valid() fails for a non-specific reason) #}
+                    {% if comment_form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ comment_form.non_field_errors }}
+                        </div>
+                    {% endif %}
 
+                    <button type="submit" class="btn btn-primary">Add Comment</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
