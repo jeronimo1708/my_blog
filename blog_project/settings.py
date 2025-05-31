@@ -134,6 +134,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static', # This is where you might put global CSS or images if you choose to have them
 ]
+STATIC_ROOT = os.environ.get('STATIC_ROOT', '')  # Where static files are collected in production
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', '')  # Directory for user-uploaded files
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
