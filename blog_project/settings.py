@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'resume_app',
     'blog_app',
     'taggit',
-    'django_recaptcha',
+    'captcha',
 ]
 
 MIDDLEWARE = [
