@@ -1,8 +1,11 @@
 # blog_app/forms.py
 from django import forms
 from .models import Comment
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 class CommentForm(forms.ModelForm):
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
     class Meta:
         model = Comment
         fields = ('name', 'email', 'body') # Fields from the Comment model to include in the form

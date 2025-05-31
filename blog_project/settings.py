@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'resume_app',
     'blog_app',
     'taggit',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -163,3 +164,6 @@ LOGGING = {
         'level': os.environ.get('DJANGO_LOGLEVEL', 'INFO'),
     },
 }
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
