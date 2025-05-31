@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'resume_app',
     'blog_app',
     'taggit',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -133,8 +134,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static', # This is where you might put global CSS or images if you choose to have them
 ]
-STATIC_ROOT = '/vol/web/static'
-MEDIA_ROOT = '/vol/web/media'
+STATIC_ROOT = os.environ.get('STATIC_ROOT', '')  # Where static files are collected in production
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', '')  # Directory for user-uploaded files
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -166,7 +167,6 @@ LOGGING = {
     },
 }
 
-
 # Security Settings for Production (CRITICAL when DEBUG=False)
 # Tell Django that Nginx (and Cloudflare Tunnel) is a trusted proxy handling SSL
 # This header is typically set by Nginx (X-Forwarded-Proto: https)
@@ -195,4 +195,9 @@ SESSION_COOKIE_SAMESITE = 'Lax' # Recommended default
 # Redirect all HTTP requests to HTTPS (Nginx should also do this, but Django as a fallback)
 # This requires SECURE_PROXY_SSL_HEADER to be correct.
 # SECURE_SSL_REDIRECT = True # Enable carefully: can cause redirect loops if proxy is misconfigured.
-                           # Nginx usually handles this more reliably.
+# Nginx usually handles this more reliably.
+
+
+# ReCaptcha settings
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
