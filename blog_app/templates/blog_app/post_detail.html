@@ -24,7 +24,9 @@
                     </button>
                 </form>
             {% else %}
-                <small class="ms-2">(<a href="{% url 'admin:login' %}">Log in</a> to like this post)</small>
+                {% if settings.DEBUG %}
+                    <small class="ms-2">(<a href="{% url 'admin:login' %}">Log in</a> to like this post)</small>
+                {% endif %}
             {% endif %}
         </p>
 
