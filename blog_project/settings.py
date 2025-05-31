@@ -165,5 +165,37 @@ LOGGING = {
     },
 }
 
+# Security Settings for Production (CRITICAL when DEBUG=False)
+# Tell Django that Nginx (and Cloudflare Tunnel) is a trusted proxy handling SSL
+# This header is typically set by Nginx (X-Forwarded-Proto: https)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Ensure all cookies are sent only over HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Helps protect against cross-site scripting (XSS) and clickjacking
+X_FRAME_OPTIONS = 'DENY' # Prevents your site from being embedded in iframes
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# HSTS (HTTP Strict Transport Security) - tells browsers to always use HTTPS
+# Set to a short duration (e.g., 3600 seconds = 1 hour) initially, then raise to 31536000 (1 year) in production
+# This might require some Nginx config, but Django can set the header too.
+# SECURE_HSTS_SECONDS = 3600
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True # Only enable after a long HSTS_SECONDS duration is proven to work
+
+# For CSRF cookies, set SameSite attribute (Lax is default/good, None for cross-site POSTs like APIs if needed)
+CSRF_COOKIE_SAMESITE = 'Lax' # Recommended default
+SESSION_COOKIE_SAMESITE = 'Lax' # Recommended default
+
+# Redirect all HTTP requests to HTTPS (Nginx should also do this, but Django as a fallback)
+# This requires SECURE_PROXY_SSL_HEADER to be correct.
+# SECURE_SSL_REDIRECT = True # Enable carefully: can cause redirect loops if proxy is misconfigured.
+# Nginx usually handles this more reliably.
+
+
+# ReCaptcha settings
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
