@@ -6,6 +6,7 @@ from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
 class CommentForm(forms.ModelForm):
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    honeypot = forms.CharField(required=False, widget=forms.HiddenInput)
     class Meta:
         model = Comment
         fields = ('name', 'email', 'body') # Fields from the Comment model to include in the form
@@ -19,3 +20,10 @@ class CommentForm(forms.ModelForm):
             'email': '',
             'body': '',
         }
+
+    # New clean method for the honeypot field
+    def clean_honeypot(self):
+        # If a bot fills this field, it's spam. If a human submitted, it would be empty.
+        if self.cleaned_data['honeypot']:
+            raise forms.ValidationError("Spam detected. This field should be empty.") # <--- ADD THIS CLEAN METHOD
+        return self.cleaned_data['honeypot']
