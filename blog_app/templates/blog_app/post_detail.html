@@ -1,5 +1,5 @@
 {% extends 'resume_app/base.html' %}
-
+{% load blog_extras %}
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
@@ -43,7 +43,7 @@
 
         <hr>
         <div class="blog-post-content">
-            {{ post.body|linebreaks }}
+            {{ post.body|markdown }}
         </div>
         <p class="mt-4"><a href="{% url 'blog_app:post_list' %}" class="btn btn-secondary">Back to all posts</a></p>
 

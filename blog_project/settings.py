@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'blog_app',
     'taggit',
     'django_recaptcha',
+
 ]
 
 MIDDLEWARE = [
