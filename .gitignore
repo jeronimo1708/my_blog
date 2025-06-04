@@ -370,3 +370,4 @@ cython_debug/
 .cursorindexingignore
 \# compose.yaml (for Cloudflare Tunnel Deployment)
 .DS_Store
+docker-compose.dev.yml

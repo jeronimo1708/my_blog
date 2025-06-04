@@ -1,0 +1,40 @@
+# docker-compose.yml (Base configuration, shared by dev and prod)
+
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: blog_project-db # Keep container_name for consistency
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Volume for DB persistence
+    env_file:
+      - .env
+    networks:
+      - blog_network
+
+  web:
+    build:
+      context: . # Build from the Dockerfile in the current directory
+      args:
+        PYTHON_VERSION: 3.13.3 # Use the build ARG
+    container_name: blog_project-server # Keep container_name
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - blog_network
+
+volumes:
+  postgres_data: # Define shared volume
+  static_volume: # Define shared volume (needed for both dev and prod)
+  media_volume:  # Define shared volume (needed for both dev and prod)
+  # certbot_certs, certbot_conf, cloudflared_credentials are prod-specific, remove here
+  # You might need to add them to docker-compose.prod.yml
+
+networks:
+  blog_network:
+    driver: bridge

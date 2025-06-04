@@ -1,0 +1,44 @@
+# docker-compose.prod.yml (Production environment overrides)
+
+services:
+  web: # Override the 'web' service from docker-compose.yml
+    # No 'ports' here, Nginx handles public access
+    # No 'command' here, Dockerfile's CMD (gunicorn) will be used
+    volumes:
+      # No .:/app here if you don't need code changes in prod
+      # But we'll keep it for easy collectstatic in prod
+      - .:/app
+      - static_volume:/vol/web/static # Volume for Nginx to serve static files
+      - media_volume:/vol/web/media # Volume for Nginx to serve media files
+    # Remove env_file if it's already in the base, unless you need to override
+
+  nginx: # <--- NGINX SERVICE (ONLY IN PROD)
+    build: ./nginx
+    container_name: blog_project-nginx
+    # No 'ports' mapping here. Nginx only listens internally for the tunnel.
+    volumes:
+      - static_volume:/vol/web/static
+      - media_volume:/vol/web/media
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - web
+    networks:
+      - blog_network
+
+  cloudflared: # <--- CLOUDFLARE TUNNEL SERVICE (ONLY IN PROD)
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared_tunnel
+    restart: unless-stopped
+    command: tunnel --config /etc/cloudflared/config.yml run ${CLOUDFLARE_TUNNEL_ID} # <--- YOUR ACTUAL TUNNEL ID
+    volumes:
+      - ./config.yml:/etc/cloudflared/config.yml:ro
+      # CRITICAL: Use ABSOLUTE PATHS or relative from project root if files are copied there
+      - /home/jdprod/.cloudflared/cert.pem:/etc/cloudflared/cert.pem:ro # Example for server
+      - /home/jdprod/.cloudflared/${CLOUDFLARE_TUNNEL_ID}.json:/etc/cloudflared/${CLOUDFLARE_TUNNEL_ID}.json:ro # Example for server
+    depends_on:
+      - nginx
+    networks:
+      - blog_network
+
+# volumes: # Remove prod-specific volumes here if they are defined in base
+# networks: # Remove networks here if they are defined in base
