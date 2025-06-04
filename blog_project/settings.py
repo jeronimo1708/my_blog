@@ -174,8 +174,8 @@ LOGGING = {
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Ensure all cookies are sent only over HTTPS
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True if os.environ.get("CSRF_COOKIE_SECURE") == "True" else False
+SESSION_COOKIE_SECURE = True if os.environ.get("SESSION_COOKIE_SECURE") == "True" else False
 
 # Helps protect against cross-site scripting (XSS) and clickjacking
 X_FRAME_OPTIONS = 'DENY' # Prevents your site from being embedded in iframes
