@@ -45,7 +45,7 @@ RESUME_DATA = {
     ],
     "projects": [
         {
-            "name": "CLOVerse",
+            "name": "Collateralized Loan Obligation (CLO) Desktop Application",
             "technologies": "Python",
             "bullets": [
                 "Led a team of 4 in developing the CLO desktop application, improving load times by 63% and building a real-time refresh system to instantly update global users with new data.",
@@ -57,7 +57,7 @@ RESUME_DATA = {
             "name": "LLM AI Bot",
             "technologies": "Python, FastAPI, React, DeepSeek, RAG, NLP",
             "bullets": [
-                "Contributed to building the LLM AI Bot for PricingDirect, incorporating document summarization and chat features based on open-source AI model - Deepseek.",
+                "Contributed to building the LLM AI Bot for business, incorporating document summarization and chat features based on open-source AI model - Deepseek and LLaMA.",
                 "Trained the model on internal historical data, enabling users to query documents using natural language for enhanced decision-making and information retrieval."
             ]
         }
@@ -74,7 +74,7 @@ RESUME_DATA = {
         "tools_technologies": "Amazon Web Services (EC2 • S3 • Lambda), Linux (Putty), JIRA, Bitbucket, CI/CD (Jenkins), AutoSys (job scheduler), Postman",
         "certifications": "AWS Certified Solutions Architect (Exp: 06/26)"
     },
-    "about_text": "I started working with computers when I was in the 5th Grade. Initially it was just me playing games. Then later on I learnt about coding and took a shot with SQL. It was fun and I created my first webapp. After this, I never looked back. I took up Python, HTML, CSS and Javascript and just started building. I am keen to always keep learning about the latest and the greatest in tech.",
+    "about_text": "I'm a passionate software engineer with a knack for building scalable, impactful solutions. Currently a Software Engineer III at JP Morgan Chase, I've driven innovations like improving bond price accuracy by 12% and deploying an LLM that cut summarization time by 85%. With expertise in full-stack development, distributed systems, and a love for collaborative, mission-driven teams, I'm excited to create technology that empowers users and transforms industries. Whether it's crafting elegant code or tackling complex challenges, I'm always eager to learn, grow, and make a difference.",
     # New "Projects" placeholder text for the homepage
     "summary_projects_text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
 }
